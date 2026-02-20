@@ -8,21 +8,30 @@ public class SpawnManager : MonoBehaviour
     private int animalIndex;
     public float spawnRangeX = 15;
 
+    private void Start()
+    {
+        InvokeRepeating(nameof(SpawnAnimal), 2f, 4f);
+    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            animalIndex = Random.Range(0, animalPrefabs.Length);
-            Vector3 spawnPos = new(
-                Random.Range(-spawnRangeX, spawnRangeX),
-                transform.position.y,
-                transform.position.z
-            );
-            Instantiate(
-                animalPrefabs[animalIndex],
-                spawnPos,
-                animalPrefabs[animalIndex].transform.rotation
-            );
+            SpawnAnimal();
         }
     }
+    void SpawnAnimal()
+    {
+        animalIndex = Random.Range(0, animalPrefabs.Length);
+        Vector3 spawnPos = new(
+            Random.Range(-spawnRangeX, spawnRangeX),
+            transform.position.y,
+            transform.position.z
+        );
+        Instantiate(
+            animalPrefabs[animalIndex],
+            spawnPos,
+            animalPrefabs[animalIndex].transform.rotation
+        );
+    }
+
 }
